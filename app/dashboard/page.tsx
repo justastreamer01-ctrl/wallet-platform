@@ -319,7 +319,7 @@ export default function DashboardPage() {
           style={btnStyle}
           onClick={() =>
             alert(
-              'support@swyftaccess.com'
+              'yourveryownhuey@gmail.com'
             )
           }
         >
