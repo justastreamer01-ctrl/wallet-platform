@@ -326,6 +326,12 @@ export default function DashboardPage() {
           Contact Support
         </button>
 
+<button
+  style={btnStyle}
+  onClick={() => router.push('/community')}
+>
+  Community (Find posts about rewards and other updates from our team and ask questions or give feedback)
+</button>
         <button
           style={{
             ...btnStyle,
