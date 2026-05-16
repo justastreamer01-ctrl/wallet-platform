@@ -319,7 +319,7 @@ export default function DashboardPage() {
           style={btnStyle}
           onClick={() =>
             alert(
-              'Email any issues for Support at: yourveryownhuey@gmail.com'
+              'Email for Support if any issues at: yourveryownhuey@gmail.com'
             )
           }
         >
