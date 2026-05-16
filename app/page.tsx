@@ -96,8 +96,7 @@ export default function HomePage() {
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 120, padding: 30, color: '#777' }}>
-        © 2026 Swyft access 
-        Contact us at: yourveryownhuey@gmail.com
+        © 2026 Swyft access Contact us at: yourveryownhuey@gmail.com
       </div>
 
     </div>
