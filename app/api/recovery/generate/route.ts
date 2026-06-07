@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import bcrypt from 'bcryptjs'
-import bip39 from 'bip39'
+import { generateMnemonic } from 'bip39'
 
 export async function POST(req: Request) {
   try {
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     }
 
     // 🔥 REAL 12 WORD PHRASE
-    const phrase = bip39.generateMnemonic(128)
+    const phrase = generateMnemonic(128)
 
     const hash = await bcrypt.hash(phrase, 12)
 
