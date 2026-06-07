@@ -244,9 +244,64 @@ export default function DashboardPage() {
 
         <button
           style={btnStyle}
-          onClick={() =>
-            alert('Transfers coming soon')
-          }
+          onClick={async () => {
+  const email = prompt('Receiver email')
+  const amount = prompt('Amount')
+
+  if (!email || !amount) return
+
+  // 🔐 STEP 1: PIN CHECK
+  const pin = prompt('Enter your Transfer PIN')
+
+  if (!pin) {
+    alert('PIN required')
+    return
+  }
+
+  const bcrypt = await import('bcryptjs')
+
+  const { data, error } = await supabase
+    .from('wallets')
+    .select('transfer_pin_hash')
+    .eq('id', wallet.id)
+    .single()
+
+  if (error || !data?.transfer_pin_hash) {
+    alert('PIN not set')
+    return
+  }
+
+  const valid = await bcrypt.compare(
+    pin,
+    data.transfer_pin_hash
+  )
+
+  if (!valid) {
+    alert('Invalid PIN')
+    return
+  }
+
+  // 💸 STEP 2: CALL TRANSFER API
+  const res = await fetch('/api/transfer', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      receiverEmail: email,
+      amount: Number(amount),
+    }),
+  })
+
+  const result = await res.json()
+
+  if (!res.ok) {
+    alert(result.error)
+    return
+  }
+
+  alert('Transfer successful')
+}}
         >
           Make Transfer
         </button>
@@ -331,6 +386,92 @@ export default function DashboardPage() {
   onClick={() => router.push('/community')}
 >
   Community (Find posts about rewards and other updates from our team and ask questions or give feedback)
+</button>
+<button
+  style={btnStyle}
+  onClick={async () => {
+    const pin = prompt('Set a 4–6 digit transfer PIN')
+
+    if (!pin) return
+
+    const bcrypt = await import('bcryptjs')
+
+    const hash = await bcrypt.hash(pin, 10)
+
+    const { error } = await supabase
+      .from('wallets')
+      .update({
+        transfer_pin_hash: hash,
+      })
+      .eq('id', wallet.id)
+
+    if (error) {
+      alert(error.message)
+      return
+    }
+
+    alert('Transfer PIN set successfully')
+  }}
+>
+  Set Transfer PIN
+</button>
+<button
+  style={btnStyle}
+  
+  onClick={async () => {
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
+    if (!session) {
+      alert('Not logged in')
+      return
+    }
+
+    const res = await fetch(
+      '/api/recovery/generate',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      }
+    )
+
+    const text = await res.text()
+
+    let data
+    try {
+      data = JSON.parse(text)
+    } catch (err) {
+      console.error('Invalid response:', text)
+      alert('Server error. Check console.')
+      return
+    }
+
+    if (!res.ok) {
+      alert(data?.error || 'Request failed')
+      return
+    }
+
+    const confirm = prompt(
+      `⚠ SAVE THIS 12-WORD PHRASE (shown once):\n\n${data.phrase}\n\nType "I saved it" to confirm`
+    )
+
+    if (confirm !== 'I saved it') {
+      alert('Recovery not confirmed')
+      return
+    }
+
+    alert('Recovery phrase secured successfully')
+  } catch (err: any) {
+    console.error(err)
+    alert('Unexpected error occurred')
+  }
+}}
+>
+  View 12-word Security Phrase
 </button>
         <button
           style={{

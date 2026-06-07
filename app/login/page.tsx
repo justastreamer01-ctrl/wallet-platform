@@ -1,168 +1,146 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { supabase } from '../lib/supabase'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const router = useRouter()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
 
+  // 🔐 PASSWORD LOGIN
   const login = async () => {
-    try {
-      setLoading(true)
-
-      const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } =
+      await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
-      if (error) {
-        alert(error.message)
-        setLoading(false)
-        return
-      }
-
-      if (!data.user) {
-        alert('Login failed')
-        setLoading(false)
-        return
-      }
-
-      setLoading(false)
-
-      router.push('/dashboard')
-    } catch (err) {
-      console.log(err)
-      alert('Unexpected login error')
-      setLoading(false)
+    if (error) {
+      alert(error.message)
+      return
     }
+
+    router.push('/dashboard')
   }
 
-  const signup = async () => {
-    try {
-      setLoading(true)
+  // 📧 OTP LOGIN
+  const loginWithOtp = async () => {
+    if (!email) return
 
-      const { data, error } = await supabase.auth.signUp({
+    const { error } =
+      await supabase.auth.signInWithOtp({
         email,
-        password,
       })
 
-      if (error) {
-        alert(error.message)
-        setLoading(false)
-        return
-      }
-
-      if (data.user) {
-        await supabase.from('wallets').insert({
-          user_id: data.user.id,
-          balance: 0,
-          nickname: email.split('@')[0],
-        })
-      }
-
-      setLoading(false)
-
-      alert('Account created successfully')
-    } catch (err) {
-      console.log(err)
-      alert('Unexpected signup error')
-      setLoading(false)
+    if (error) {
+      alert(error.message)
+      return
     }
+
+    alert('Check your email for login link')
+  }
+
+  const styles = {
+    page: {
+      minHeight: '100vh',
+      padding: 40,
+      background: darkMode ? '#0f172a' : '#f3f4f6',
+      color: darkMode ? '#fff' : '#111',
+      transition: '0.3s ease',
+    },
+    input: {
+      padding: 10,
+      marginTop: 10,
+      width: 260,
+      display: 'block',
+      borderRadius: 6,
+      border: '1px solid #ccc',
+    },
+    button: {
+      marginTop: 10,
+      padding: 10,
+      width: 260,
+      cursor: 'pointer',
+      borderRadius: 6,
+      border: 'none',
+      background: darkMode ? '#1e293b' : '#111',
+      color: '#fff',
+    },
+    toggle: {
+      marginBottom: 20,
+      padding: 8,
+      cursor: 'pointer',
+      borderRadius: 6,
+      border: '1px solid #999',
+      background: darkMode ? '#1e293b' : '#fff',
+      color: darkMode ? '#fff' : '#111',
+    },
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#f3f4f6',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
-      <div
-        style={{
-          width: 360,
-          padding: 20,
-          background: '#fff',
-          border: '1px solid #d1d5db',
-          borderRadius: 15,
-          boxShadow: '0 8px 25px rgba(0,0,0,0.04)',
-        }}
+    <div style={styles.page}>
+      {/* 🌙 DARK MODE TOGGLE */}
+      <button
+        style={styles.toggle}
+        onClick={() =>
+          setDarkMode(!darkMode)
+        }
       >
-        <h2 style={{ marginBottom: 20 }}>Swyft Access</h2>
+        {darkMode
+          ? '🌞 Light Mode'
+          : '🌙 Dark Mode'}
+      </button>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{
-            width: '100%',
-            marginBottom: 10,
-            padding: 10,
-            borderRadius: 8,
-            border: '1px solid #d1d5db',
-          }}
-        />
+      <h1>Login</h1>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{
-            width: '100%',
-            marginBottom: 10,
-            padding: 10,
-            borderRadius: 8,
-            border: '1px solid #d1d5db',
-          }}
-        />
+      {/* EMAIL */}
+      <input
+        placeholder="Email"
+        onChange={(e) =>
+          setEmail(e.target.value)
+        }
+        style={styles.input}
+      />
 
-        <button
-          type="button"
-          onClick={login}
-          disabled={loading}
-          style={{
-            width: '100%',
-            padding: 10,
-            borderRadius: 8,
-            border: 'none',
-            background: '#4b5563',
-            color: '#fff',
-            fontWeight: 'bold',
-            marginBottom: 10,
-            cursor: 'pointer',
-          }}
-        >
-          {loading ? 'Loading...' : 'Login'}
-        </button>
+      {/* PASSWORD */}
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) =>
+          setPassword(e.target.value)
+        }
+        style={styles.input}
+      />
 
-        <button
-          type="button"
-          onClick={signup}
-          disabled={loading}
-          style={{
-            width: '100%',
-            padding: 10,
-            borderRadius: 8,
-            border: 'none',
-            background: '#111',
-            color: '#fff',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-          }}
-        >
-          Create Account
-        </button>
-      </div>
+      {/* LOGIN BUTTON */}
+      <button
+        onClick={login}
+        style={styles.button}
+      >
+        Login
+      </button>
+
+      {/* OTP LOGIN */}
+      <button
+        onClick={loginWithOtp}
+        style={styles.button}
+      >
+        Login with Email OTP
+      </button>
+
+      {/* FORGOT PASSWORD */}
+      <button
+        onClick={() =>
+          router.push('/forgot-password')
+        }
+        style={styles.button}
+      >
+        Forgot Password
+      </button>
     </div>
   )
 }
