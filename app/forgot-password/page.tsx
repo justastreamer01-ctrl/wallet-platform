@@ -10,13 +10,12 @@ export default function ForgotPassword() {
     if (!email) return
 
     const { error } =
-      await supabase.auth.resetPasswordForEmail(
-        email,
-        {
-          redirectTo:
-            'http://localhost:3000/reset-password',
-        }
-      )
+      await supabase.auth.resetPasswordForEmail(email, {
+  redirectTo:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000/reset-password'
+      : 'https://swyftaccessng.netlify.app/reset-password',
+})
 
     if (error) {
       alert(error.message)
