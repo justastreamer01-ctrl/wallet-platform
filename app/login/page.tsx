@@ -10,8 +10,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [darkMode, setDarkMode] = useState(false)
+  const [agreeToTerms, setAgreeToTerms] = useState(false)
 
-  // 🔐 PASSWORD LOGIN
+  // 🔐 LOGIN
   const login = async () => {
     const { error } =
       await supabase.auth.signInWithPassword({
@@ -25,6 +26,22 @@ export default function LoginPage() {
     }
 
     router.push('/dashboard')
+  }
+
+  // 🆕 SIGN UP (RESTORED)
+  const signUp = async () => {
+    const { error } =
+      await supabase.auth.signUp({
+        email,
+        password,
+      })
+
+    if (error) {
+      alert(error.message)
+      return
+    }
+
+    alert('Account created! Check your email if confirmation is enabled.')
   }
 
   // 📧 OTP LOGIN
@@ -86,13 +103,9 @@ export default function LoginPage() {
       {/* 🌙 DARK MODE TOGGLE */}
       <button
         style={styles.toggle}
-        onClick={() =>
-          setDarkMode(!darkMode)
-        }
+        onClick={() => setDarkMode(!darkMode)}
       >
-        {darkMode
-          ? '🌞 Light Mode'
-          : '🌙 Dark Mode'}
+        {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
       </button>
 
       <h1>Login</h1>
@@ -100,9 +113,7 @@ export default function LoginPage() {
       {/* EMAIL */}
       <input
         placeholder="Email"
-        onChange={(e) =>
-          setEmail(e.target.value)
-        }
+        onChange={(e) => setEmail(e.target.value)}
         style={styles.input}
       />
 
@@ -110,37 +121,76 @@ export default function LoginPage() {
       <input
         type="password"
         placeholder="Password"
-        onChange={(e) =>
-          setPassword(e.target.value)
-        }
+        onChange={(e) => setPassword(e.target.value)}
         style={styles.input}
       />
 
-      {/* LOGIN BUTTON */}
-      <button
-        onClick={login}
-        style={styles.button}
-      >
+      {/* LOGIN */}
+      <button onClick={login} style={styles.button}>
         Login
       </button>
 
-      {/* OTP LOGIN */}
-      <button
-        onClick={loginWithOtp}
-        style={styles.button}
-      >
+      {/* SIGN UP (NEW BACK) */}
+      {/* TERMS CHECKBOX */}
+<label
+  style={{
+    display: 'block',
+    marginTop: 15,
+    fontSize: 14,
+    maxWidth: 260,
+  }}
+>
+  <input
+    type="checkbox"
+    checked={agreeToTerms}
+    onChange={(e) =>
+      setAgreeToTerms(e.target.checked)
+    }
+    style={{ marginRight: 8 }}
+  />
+
+  I agree to the Terms & Conditions and
+  Privacy Policy.{' '}
+  <span
+    onClick={() => router.push('/legal')}
+    style={{
+      color: '#2563eb',
+      cursor: 'pointer',
+      textDecoration: 'underline',
+    }}
+  >
+    Click here to read them.
+  </span>
+</label>
+
+<button
+  onClick={signUp}
+  disabled={!agreeToTerms}
+  style={{
+    marginTop: 20,
+    padding: 10,
+    width: 280,
+    background: agreeToTerms ? '#111' : '#888',
+    color: '#fff',
+    border: 'none',
+    cursor: agreeToTerms ? 'pointer' : 'not-allowed',
+  }}
+>
+  Create Account
+</button>
+      {/* OTP */}
+      <button onClick={loginWithOtp} style={styles.button}>
         Login with Email OTP
       </button>
 
       {/* FORGOT PASSWORD */}
       <button
-        onClick={() =>
-          router.push('/forgot-password')
-        }
+        onClick={() => router.push('/forgot-password')}
         style={styles.button}
       >
         Forgot Password
       </button>
+      <p><a href="/legal">Click here to Read privacy policy & terms</a></p>
     </div>
   )
 }
