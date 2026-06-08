@@ -108,7 +108,7 @@ export default function LoginPage() {
         {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
       </button>
 
-      <h1>Login</h1>
+      <h1>Login to Swyft access</h1>
 
       {/* EMAIL */}
       <input
