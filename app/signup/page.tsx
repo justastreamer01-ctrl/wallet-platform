@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../lib/supabase'
@@ -11,8 +12,29 @@ export default function SignupPage() {
   const [password, setPassword] = useState('')
   const [agreeToTerms, setAgreeToTerms] = useState(false)
   const [loading, setLoading] = useState(false)
+  const searchParams = useSearchParams()
+
+const referralCode =
+  searchParams.get('ref')
 
   const signup = async () => {
+    const { data, error } =
+  await supabase.auth.signUp({
+    email,
+    password,
+  })
+
+if (error) return alert(error.message)
+
+const userId = data.user?.id
+await supabase.rpc(
+  'complete_user_setup',
+  {
+    p_user_id: userId,
+    p_referral_code:
+      referralCode ?? null,
+  }
+)
     if (!agreeToTerms) {
       alert(
         'You must accept the Terms & Conditions and Privacy Policy to continue.'
