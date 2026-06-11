@@ -1,11 +1,12 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../lib/supabase'
 
-export default function SignupPage() {
+function SignupContent() {
   const router = useRouter()
 
   const [email, setEmail] = useState('')
@@ -18,6 +19,18 @@ const referralCode =
   searchParams.get('ref')
 
   const signup = async () => {
+
+    if (!agreeToTerms) {
+      alert(
+        'You must accept the Terms & Conditions and Privacy Policy to continue.'
+      )
+      return
+    }
+
+    if (!email || !password) {
+      alert('Email and password are required.')
+      return
+    }
     const { data, error } =
   await supabase.auth.signUp({
     email,
@@ -35,18 +48,6 @@ await supabase.rpc(
       referralCode ?? null,
   }
 )
-    if (!agreeToTerms) {
-      alert(
-        'You must accept the Terms & Conditions and Privacy Policy to continue.'
-      )
-      return
-    }
-
-    if (!email || !password) {
-      alert('Email and password are required.')
-      return
-    }
-
     setLoading(true)
 
     try {
@@ -197,5 +198,12 @@ await supabase.rpc(
           : 'Create Account'}
       </button>
     </div>
+  )
+}
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignupContent />
+    </Suspense>
   )
 }

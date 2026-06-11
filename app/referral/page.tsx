@@ -104,6 +104,30 @@ export default function ReferralPage() {
 
   await loadWallet()
 }
+async function shareReferralLink() {
+
+  if (!navigator.share) {
+
+    alert(
+      'Sharing is not supported on this device.'
+    )
+
+    return
+  }
+
+  try {
+
+    await navigator.share({
+      title: 'Join using my referral link',
+      text:
+        'Sign up using my referral link and get started.',
+      url: referralLink,
+    })
+
+  } catch (err) {
+    console.log(err)
+  }
+}
 
   if (loading) {
     return <p>Loading...</p>
@@ -226,6 +250,16 @@ export default function ReferralPage() {
             ? 'Copied!'
             : 'Copy Referral Link'}
         </button>
+        <button
+  onClick={shareReferralLink}
+  style={{
+    width: '100%',
+    padding: 12,
+    marginTop: 10,
+  }}
+>
+  Share Referral Link
+</button>
       </div>
     </div>
   )
