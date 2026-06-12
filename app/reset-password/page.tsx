@@ -3,10 +3,71 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../lib/supabase'
+import { useEffect } from 'react'
 
 export default function ResetPasswordPage() {
   const router = useRouter()
 
+  useEffect(() => {
+
+  async function checkRecoveryAccess() {
+
+    const {
+      data: { session }
+    } = await supabase.auth.getSession()
+
+    if (!session) {
+
+      router.replace('/login')
+
+      return
+    }
+
+  }
+
+  checkRecoveryAccess()
+
+}, [router])
+
+useEffect(() => {
+
+  const {
+    data: listener
+  } =
+    supabase.auth.onAuthStateChange(
+      (event) => {
+
+        if (
+          event !==
+          'PASSWORD_RECOVERY'
+        ) {
+
+          router.replace('/login')
+        }
+      }
+    )
+
+  return () => {
+    listener.subscription.unsubscribe()
+  }
+
+}, [router])
+
+useEffect(() => {
+
+  const hash =
+    window.location.hash
+
+  if (
+    !hash.includes(
+      'type=recovery'
+    )
+  ) {
+
+    router.replace('/login')
+  }
+
+}, [router])
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] =
     useState('')

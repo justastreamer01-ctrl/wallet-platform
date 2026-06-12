@@ -39,7 +39,7 @@ export default function LegalPage() {
 
  🧾 About Our Platform </h3>
 
-<p>This platform is a digital financial technology application that provides users with a virtual wallet interface for managing and viewing stored balances, simulated or real transactions, and related account activity. </p>
+<p>This platform is a digital financial technology application that provides users with a virtual wallet interface for managing and viewing stored balances, making transactions, and some other related wallet interface activities. </p>
 
 <p>The service is designed to allow users to: 
 
@@ -719,6 +719,32 @@ Continued use of subscription features or participation in the Leaderboard Rewar
 ### User Acknowledgement
 <p></p>
 By subscribing, continuing use of the platform, or participating in referral-based access programs, users acknowledge and agree to these subscription terms, including the billing structure, referral eligibility rules, and leaderboard access conditions.
+<p></p>
+<p>--- </p>
+<p></p>
+📌 **Leaderboard Ranking & Tie-Breaking (Time Priority Rule)**
+<p></p>
+Participation in the Monthly Leaderboard is based on the total number of successful transactions completed within the defined monthly competition period (“Season”).
+<p></p>
+In the event that two or more users achieve the same number of transactions, rankings will be determined using a **time-priority system**.
+<p></p>
+⏱️ **1. Time Priority Definition**
+<p></p>
+Where transaction counts are equal, the user who first reaches the final recorded transaction count will be ranked higher on the Leaderboard.
+<p></p>
+For example, if two users each complete 10,000 transactions within the same Season, the user who achieved their 10,000th transaction earlier in time will be assigned the higher rank.
+<p></p>
+🕰️ **2. System Timestamp Authority**
+<p></p>
+All rankings are determined based on server-recorded timestamps. These timestamps are automatically generated and logged at the moment each transaction is successfully confirmed within the system. User device time, network time, or manually reported times shall not be considered valid.
+<p></p>
+⏳ **3. Finality of Ranking**
+<p></p>
+Leaderboard rankings, including tie-break decisions based on time priority, are calculated in real time but become final at the end of each Season. Once finalized, rankings cannot be disputed, modified, or reversed except in cases of proven system error or fraud as determined by the platform.
+<p></p>
+⚖️ **4. Fair Use & Integrity**
+<p></p>
+Any attempt to manipulate transaction timestamps, system timing, or transaction sequencing to gain unfair ranking advantage may result in disqualification from the Leaderboard and/or suspension from reward eligibility.
 <p></p>
 
 <b>THANK YOU FOR CHOOSING SWYFT ACCESS,ENJOY.</b>

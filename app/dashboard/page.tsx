@@ -233,9 +233,16 @@ useEffect(() => {
     }
   }
 
-  const handleLeaderboardClick = () => {
-  if (hasLeaderboardAccess) {
-    alert('Leaderboard Coming Soon')
+  function handleLeaderboardClick() {
+
+  const hasAccess =
+    wallet?.subscription_active ||
+    (wallet?.free_access_until &&
+      new Date(wallet.free_access_until) >
+        new Date())
+
+  if (hasAccess) {
+    router.push('/leaderboard')
     return
   }
 
@@ -653,7 +660,7 @@ useEffect(() => {
 
       <p>
         Purchase a subscription or use
-        a valid access code to unlock
+        a valid access referral bonus hours to unlock
         leaderboard participation.
       </p>
 

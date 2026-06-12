@@ -76,9 +76,9 @@ export default function HomePage() {
       }}>
 
         {[
+          ['Smart wallet', 'Send, receive, and manage money Nationwide in seconds.'],
+          ['Phenomenal Reward programs!', 'Earn very exciting monthly rewards with our remarkable leaderboard reward program.'],
           ['Advanced Security', 'Advanced fraud detection powered by adaptive intelligence.'],
-          ['Smart Wallet', 'Send, receive, and manage money globally in seconds.'],
-          ['Rewards', 'Earn monthly rewards and incentives.'],
           ['Virtual Cards', 'Generate cards for online payments (coming soon).']
         ].map((f, i) => (
           <div key={i} style={{
@@ -97,6 +97,8 @@ export default function HomePage() {
 
       <div style={{ textAlign: 'center', marginTop: 120, padding: 30, color: '#777' }}>
         © 2026 Swyft access Contact us at: yourveryownhuey@gmail.com
+        <p></p>
+        <a href="/legal">Legal section, terms & privacy policy</a>
       </div>
 
     </div>

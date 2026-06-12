@@ -3,49 +3,105 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 
-export default function ForgotPassword() {
-  const [email, setEmail] = useState('')
+export default function ForgotPasswordPage() {
 
-  const sendReset = async () => {
-    if (!email) return
+  const [email, setEmail] =
+    useState('')
+
+  const [loading, setLoading] =
+    useState(false)
+
+  const [sent, setSent] =
+    useState(false)
+
+  async function handleReset() {
+
+    if (!email) {
+      alert('Please enter your email')
+      return
+    }
+
+    setLoading(true)
+
+    const origin =
+      window.location.origin
 
     const { error } =
-      await supabase.auth.resetPasswordForEmail(email, {
-  redirectTo:
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/reset-password'
-      : 'https://swyftaccessng.netlify.app/reset-password',
-})
+      await supabase.auth
+        .resetPasswordForEmail(
+          email,
+          {
+            redirectTo:
+              `${origin}/reset-password`
+          }
+        )
+
+    setLoading(false)
 
     if (error) {
       alert(error.message)
       return
     }
 
-    alert('Password reset email sent')
+    setSent(true)
   }
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Forgot Password</h1>
+    <div
+      style={{
+        maxWidth: 420,
+        margin: '60px auto',
+        padding: 20,
+      }}
+    >
+
+      <h1>Forgot Password?</h1>
+
+      <p>
+        Enter your Swyft access account's email and we’ll send
+        you a reset link.
+      </p>
 
       <input
-        placeholder="Enter email"
+        type="email"
+        placeholder="Email address"
+        value={email}
         onChange={(e) =>
           setEmail(e.target.value)
         }
-        style={{ padding: 10, marginTop: 10 }}
+        style={{
+          width: '100%',
+          padding: 12,
+          marginTop: 10,
+          marginBottom: 10,
+        }}
       />
 
       <button
-        onClick={sendReset}
+        onClick={handleReset}
+        disabled={loading}
         style={{
-          marginTop: 20,
-          padding: 10,
-        }}
+            background: '#111',
+            color: '#fff',
+            width: '100%',
+          padding: 12,
+
+          }}
+
+
       >
-        Send Reset Link
+        {loading
+          ? 'Sending...'
+          : 'Send reset link'}
       </button>
+
+      {sent && (
+        <p style={{ marginTop: 15 }}>
+          If this email exists, a reset link
+          has been sent.(check your email)
+        </p>
+      )}
+
     </div>
   )
 }
