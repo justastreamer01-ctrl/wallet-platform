@@ -746,6 +746,37 @@ Leaderboard rankings, including tie-break decisions based on time priority, are 
 <p></p>
 Any attempt to manipulate transaction timestamps, system timing, or transaction sequencing to gain unfair ranking advantage may result in disqualification from the Leaderboard and/or suspension from reward eligibility.
 <p></p>
+<p>--- </p>
+<p></p>
+🕒 **Leaderboard Eligibility & Active Access Requirement**
+<p></p>
+Participation in the Monthly Leaderboard is limited to users with an active leaderboard subscription or valid leaderboard access during the Season.
+<p></p>
+✅ **1. Active Participation Requirement**
+<p></p>
+Only users with valid and active access status will be eligible to appear on the Leaderboard and be considered participants in the Monthly ranking system.
+<p></p>
+A user’s access is considered active only while their subscription or granted access period remains valid and unexpired.
+<p></p>
+✅ **2. Access Expiration**
+<p></p>
+If a user’s leaderboard access expires, is revoked, or otherwise becomes inactive during the Season:
+<p></p>
+* The user will be removed from the visible Leaderboard in real time.
+<p></p>
+* The user will not be eligible for inclusion in the final ranking used to determine reward recipients for that Season.
+<p></p>
+* Any transactions completed while access is inactive will not count toward leaderboard ranking or reward eligibility.
+<p></p>
+✅ **3. Restoration of Access**
+<p></p>
+If access is restored before the end of the Season, the user may resume participation and continue accumulating eligible transactions from the point of reinstatement, subject to system validation.
+<p></p>
+✅ **4. System Determination**
+<p></p>
+Eligibility status, access validity, and participation tracking are determined solely by system records. Any discrepancies or disputes shall be resolved based on server-side logs, which are final and binding.
+<p></p>
+<p></p>
 
 <b>THANK YOU FOR CHOOSING SWYFT ACCESS,ENJOY.</b>
 

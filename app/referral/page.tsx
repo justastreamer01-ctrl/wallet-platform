@@ -118,9 +118,9 @@ async function shareReferralLink() {
   try {
 
     await navigator.share({
-      title: 'Join using my referral link',
+      title: 'Swyft access',
       text:
-        'Sign up using my referral link and get started.',
+        'Sign up on Swyft access using my referral link.',
       url: referralLink,
     })
 
