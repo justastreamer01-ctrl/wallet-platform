@@ -103,7 +103,9 @@ const heroImage =
     <div style={styles.page}>
       <div
   style={{
-    width: "100%",
+    width: "100vw",
+    marginLeft: "calc(50% - 50vw)",
+    marginRight: "calc(50% - 50vw)",
     marginBottom: 30,
     position: "relative",
   }}
