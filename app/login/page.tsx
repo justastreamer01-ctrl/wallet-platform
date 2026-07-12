@@ -107,6 +107,7 @@ const heroImage =
     marginLeft: "calc(50% - 50vw)",
     marginRight: "calc(50% - 50vw)",
     marginBottom: 30,
+    marginTop: "-40px",
     position: "relative",
   }}
 >
@@ -145,7 +146,8 @@ const heroImage =
 </div>
       
 
-      <h1>Login to Swyft access</h1>
+     <center> <h1> <b> <i>Welcome to Swyft access </i></b></h1> </center>
+     <h1>Login to your account</h1>
 
       {/* EMAIL */}
       <input
