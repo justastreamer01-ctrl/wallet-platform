@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const router = useRouter()
-
+const heroImage =
+  "https://i.imgur.com/Bp7vLtn.png/image.png"
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [darkMode, setDarkMode] = useState(false)
@@ -100,13 +101,47 @@ export default function LoginPage() {
 
   return (
     <div style={styles.page}>
-      {/* 🌙 DARK MODE TOGGLE */}
+      <div
+  style={{
+    width: "100%",
+    marginBottom: 30,
+    position: "relative",
+  }}
+>
+<div
+  style={{
+    position: "absolute",
+    top: 16,
+    right: 16,
+    zIndex: 10,
+  }}
+>
+
+  {/* DARK MODE BUTTON GOES HERE */}
+  {/* 🌙 DARK MODE TOGGLE */}
       <button
         style={styles.toggle}
         onClick={() => setDarkMode(!darkMode)}
       >
         {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
       </button>
+      </div>
+
+  <img
+    src={heroImage}
+    alt="Wallet Dashboard"
+    draggable={false}
+    style={{
+      width: "100%",
+      height: "auto",
+      display: "block",
+      objectFit: "contain",
+      userSelect: "none",
+      pointerEvents: "none",
+    }}
+  />
+</div>
+      
 
       <h1>Login to Swyft access</h1>
 
@@ -192,5 +227,6 @@ export default function LoginPage() {
       </button>
       <p><a href="/legal">Click here to Read privacy policy & terms</a></p>
     </div>
+    
   )
 }

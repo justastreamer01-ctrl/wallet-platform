@@ -235,6 +235,10 @@ useEffect(() => {
 
   function handleLeaderboardClick() {
 
+    if (!wallet?.nickname || wallet.nickname.trim() === '') {
+  alert('Please add a nickname to continue')
+  return
+}
   const hasAccess =
     wallet?.subscription_active ||
     (wallet?.free_access_until &&
@@ -475,8 +479,12 @@ useEffect(() => {
       .select()
       .single()
 
-    if (error) {
-      alert(error.message)
+      if (error) {
+
+      if (error?.code === '23505') {
+  alert('Nickname already taken, please choose a new one')
+}
+
       return
     }
 
@@ -485,7 +493,7 @@ useEffect(() => {
     alert('Nickname updated')
   }}
 >
-  Set Nickname
+  Update Nickname
 </button>
 
 
@@ -671,6 +679,10 @@ useEffect(() => {
           )
         }
         style={{
+            ...btnStyle,
+            background: '#111',
+            color: '#fff',
+          
           width: '100%',
           marginTop: 15,
           padding: 12,
@@ -686,6 +698,10 @@ useEffect(() => {
           )
         }
         style={{
+          ...btnStyle,
+            background: '#111',
+            color: '#fff',
+          
           width: '100%',
           marginTop: 10,
           padding: 12,
