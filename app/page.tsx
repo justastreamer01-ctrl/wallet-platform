@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 export default function HomePage() {
   return (
+    
     <div style={{
       margin: 0,
       fontFamily: 'Arial, sans-serif',
@@ -14,22 +15,10 @@ export default function HomePage() {
       minHeight: '100vh'
     }}>
 
-      {/* Navbar */}
-      <div style={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    width: "100%",
-    padding: "20px 40px",
-  }}>
-        <Link href="/">
-    <img
-      src="https://i.imgur.com/eqWc7sP.jpeg"
-      alt="Logo"
-      style={{ height: "100px", width: "300" }}
-    />
-  </Link>
-        <Link href="/login">
+      <header className="flex items-center justify-between px-6 py-4 bg-slate-900">
+  <img src="https://i.imgur.com/eXpnjJL.png" alt="Logo" className="h-10" />
+
+  <Link href="/login">
           <button style={{
             padding: '10px 22px',
             borderRadius: 999,
@@ -42,7 +31,9 @@ export default function HomePage() {
             Login
           </button>
         </Link>
-      </div>
+</header>
+
+      
 
       {/* Hero */}
       <div style={{ textAlign: 'center', marginTop: 100, padding: '0 20px' }}>
