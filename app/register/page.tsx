@@ -11,22 +11,8 @@ const heroImage =
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [darkMode, setDarkMode] = useState(false)
-  
-  // 🔐 LOGIN
-  const login = async () => {
-    const { error } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
+  const [agreeToTerms, setAgreeToTerms] = useState(false)
 
-    if (error) {
-      alert(error.message)
-      return
-    }
-
-    router.push('/dashboard')
-  }
 
   // 🆕 SIGN UP (RESTORED)
   const signUp = async () => {
@@ -44,28 +30,12 @@ const heroImage =
     alert('Account created! Check your email if confirmation is enabled.')
   }
 
-  // 📧 OTP LOGIN
-  const loginWithOtp = async () => {
-    if (!email) return
-
-    const { error } =
-      await supabase.auth.signInWithOtp({
-        email,
-      })
-
-    if (error) {
-      alert(error.message)
-      return
-    }
-
-    alert('Check your email for login link')
-  }
 
   const styles = {
     page: {
       minHeight: '100vh',
       padding: 40,
-      background: darkMode ? '#111' : '#f3f4f6',
+      background: darkMode ? '#0f172a' : '#f3f4f6',
       color: darkMode ? '#fff' : '#111',
       transition: '0.3s ease',
     },
@@ -84,7 +54,7 @@ const heroImage =
       cursor: 'pointer',
       borderRadius: 6,
       border: 'none',
-      background: darkMode ? '#999' : '#111',
+      background: darkMode ? '#1e293b' : '#111',
       color: '#fff',
     },
     toggle: {
@@ -93,7 +63,7 @@ const heroImage =
       cursor: 'pointer',
       borderRadius: 6,
       border: '1px solid #999',
-      background: darkMode ? '#111' : '#fff',
+      background: darkMode ? '#1e293b' : '#fff',
       color: darkMode ? '#fff' : '#111',
     },
   }
@@ -146,7 +116,7 @@ const heroImage =
       
 
      <center> <h1> <b> <i>Welcome to Swyft access </i></b></h1> </center>
-     <h1>Login to your account</h1>
+     <h1>Enter the required details to create an account</h1>
 
       {/* EMAIL */}
       <input
@@ -163,24 +133,58 @@ const heroImage =
         style={styles.input}
       />
 
-      {/* LOGIN */}
-      <button onClick={login} style={styles.button}>
-        Login
-      </button>
-<p>Don't have an account? No worries,Click the Create account button below to Signup</p>
-<button style={styles.button}> <a href="/register"> Create an account </a> </button>
-      {/* OTP */}
-      <button onClick={loginWithOtp} style={styles.button}>
-        Login with Email OTP
-      </button>
 
-      {/* FORGOT PASSWORD */}
-      <button
-        onClick={() => router.push('/forgot-password')}
-        style={styles.button}
-      >
-        Forgot Password
-      </button>
+      {/* SIGN UP (NEW BACK) */}
+      {/* TERMS CHECKBOX */}
+<label
+  style={{
+    display: 'block',
+    marginTop: 15,
+    fontSize: 14,
+    maxWidth: 260,
+  }}
+>
+  <input
+    type="checkbox"
+    checked={agreeToTerms}
+    onChange={(e) =>
+      setAgreeToTerms(e.target.checked)
+    }
+    style={{ marginRight: 8 }}
+  />
+
+  I agree to the Terms & Conditions and
+  Privacy Policy.{' '}
+  <span
+    onClick={() => router.push('/legal')}
+    style={{
+      color: '#2563eb',
+      cursor: 'pointer',
+      textDecoration: 'underline',
+    }}
+  >
+    Click here to read them.
+  </span>
+</label>
+
+<button
+  onClick={signUp}
+  disabled={!agreeToTerms}
+  style={{
+    marginTop: 20,
+    padding: 10,
+    width: 280,
+    background: agreeToTerms ? '#111' : '#888',
+    color: '#fff',
+    border: 'none',
+    cursor: agreeToTerms ? 'pointer' : 'not-allowed',
+  }}
+>
+  Create Account
+</button>
+<p>Already have an account? Click the button below to login</p>
+<button style={styles.button}> <a href="/login"> Login to your account</a></button>
+     
       <p><a href="/legal">Click here to Read privacy policy & terms</a></p>
     </div>
     
