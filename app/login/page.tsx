@@ -65,7 +65,7 @@ const heroImage =
     page: {
       minHeight: '100vh',
       padding: 40,
-      background: darkMode ? '#111' : '#f3f4f6',
+      background: darkMode ? '#05163f' : '#f3f4f6',
       color: darkMode ? '#fff' : '#111',
       transition: '0.3s ease',
     },
@@ -84,7 +84,7 @@ const heroImage =
       cursor: 'pointer',
       borderRadius: 6,
       border: 'none',
-      background: darkMode ? '#999' : '#111',
+      background: darkMode ? '#111' : '#111',
       color: '#fff',
     },
     toggle: {
