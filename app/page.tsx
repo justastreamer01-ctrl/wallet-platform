@@ -11,12 +11,12 @@ export default function HomePage() {
       margin: 0,
       fontFamily: 'Arial, sans-serif',
       background: 'linear-gradient(135deg,#f5f5f7,#e4e7ec)',
-      color: '#0f172a',
+      color: '#05163f',
       minHeight: '100vh'
     }}>
 
       <header className="flex items-center justify-between px-6 py-4 bg-slate-900">
-  <img src="https://i.imgur.com/eXpnjJL.png" alt="Logo" className="h-10" />
+  <img src="https://i.imgur.com/ZD9WVic.png" alt="Swyft access Logo" className="h-10" />
 
   <Link href="/login">
           <button style={{
@@ -149,7 +149,7 @@ export default function HomePage() {
 
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="hover:text-white transition">
+                <Link href="/legal" className="hover:text-white transition">
                   About Us
                 </Link>
               </li>
@@ -184,13 +184,13 @@ export default function HomePage() {
               </li>
 
               <li>
-                <Link href="/report-issue" className="hover:text-white transition">
+                <Link href="/contact" className="hover:text-white transition">
                   Report an Issue
                 </Link>
               </li>
 
               <li>
-                <Link href="/help" className="hover:text-white transition">
+                <Link href="/contact" className="hover:text-white transition">
                   Help Center
                 </Link>
               </li>
@@ -262,7 +262,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/contact" className="hover:text-white transition">
-              Contact
+              Contact us
             </Link>
           </div>
 

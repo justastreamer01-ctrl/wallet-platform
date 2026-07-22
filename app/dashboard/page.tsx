@@ -776,7 +776,7 @@ useEffect(() => {
 <p></p>
 The Leaderboard ranks users based on the number of successful transactions completed during the current month. The higher your transaction count, the higher you climb.
 <p></p>
-Finish the month in the <b>Top 1,000</b> and you'll earn a reward equivalent to <b> ₦ 77,000.00</b> Better yet, the leaderboard resets every month, giving everyone a fresh chance to compete from zero and claim a winning spot.
+Finish the month in the <b>Top 1,000</b> and you'll earn a reward equivalent to <b> ₦ 70,000.00</b> Better yet, the leaderboard resets every month, giving everyone a fresh chance to compete from zero and claim a winning spot.
 <p></p>
 Think you have what it takes to make the Top 1,000? Track your rank, monitor your progress, and see how close you are to the next position by clicking **Leaderboard** on the Dashboard page.
 <p></p>
